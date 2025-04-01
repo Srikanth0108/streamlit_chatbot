@@ -1,0 +1,582 @@
+[
+  {
+    "timestamp": "2025-02-01 12:05:59",
+    "question": "give me the OEE of im08 during oct 2025",
+    "sql": "SELECT mpmh.overall_equipment_effectiveness_percentage FROM machine_performance_metrics_hourly mpmh JOIN machine_details md ON mpmh.ip_address = md.ip_address WHERE md.machine_name = 'im08' AND DATE_FORMAT(mpmh.from_time, '%Y-%m') = '2025-10'",
+    "error_type": "data error",
+    "error_message": "No data found"
+  },
+  {
+    "timestamp": "2025-02-01 12:09:05",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(mp.actual_total_shots * mp.cavity_count) AS total_parts, SUM(MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts)) AS total_good_parts, SUM(MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts)) AS total_rejected_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' AND mp.mold_id IN ('KNOB', '', 'BATTERYTHROUG', 'RESIDEOBASE', 'COVERBOTTOM', 'YELLOWCOVER', 'WHITECOVER', 'WHITECV', 'cellholdertop', 'CELLHOLDERMID') GROUP BY mp.mold_id",
+    "error_type": "DatabaseError",
+    "error_message": "1111 (HY000): Invalid use of group function"
+  },
+  {
+    "timestamp": "2025-02-01 12:09:05",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(mp.actual_total_shots * mp.cavity_count) AS total_parts, SUM(MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts)) AS total_good_parts, SUM(MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts)) AS total_rejected_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' AND mp.mold_id IN ('KNOB', '', 'BATTERYTHROUG', 'RESIDEOBASE', 'COVERBOTTOM', 'YELLOWCOVER', 'WHITECOVER', 'WHITECV', 'cellholdertop', 'CELLHOLDERMID') GROUP BY mp.mold_id",
+    "error_type": "data error",
+    "error_message": "No data found"
+  },
+  {
+    "timestamp": "2025-02-01 13:59:07",
+    "question": "What does the mission spen",
+    "sql": "I cannot answer this question. The provided text does not contain information about a \"mission spen\" or any related data within the described database schema. The question is outside the scope of the database.",
+    "error_type": "ProgrammingError",
+    "error_message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'I cannot answer this question. The provided text does not contain information ab' at line 1"
+  },
+  {
+    "timestamp": "2025-02-01 13:59:07",
+    "question": "What does the mission spen",
+    "sql": "I cannot answer this question. The provided text does not contain information about a \"mission spen\" or any related data within the described database schema. The question is outside the scope of the database.",
+    "error_type": "data error",
+    "error_message": "No data found"
+  },
+  {
+    "timestamp": "2025-02-01 14:01:41",
+    "question": "내 말도 메신저",
+    "sql": "I cannot provide a SQL query for the input \"내 말도 메신저\" because it is Korean and does not appear to be a question about the provided database schema. The query requires a question in English related to the database tables and columns described.",
+    "error_type": "ProgrammingError",
+    "error_message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'I cannot provide a SQL query for the input \"내 말도 메신저\" because it is ' at line 1"
+  },
+  {
+    "timestamp": "2025-02-01 15:38:16",
+    "question": "give me the production details of im08 during oct 2026",
+    "sql": "SELECT md.machine_name, mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts_difference, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts_difference, MAX(mp.actual_good_shots) - MIN(mp.actual_good_shots) AS good_shots_difference, MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots) AS total_shots_difference, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2026-10' GROUP BY md.machine_name, mp.mold_id, mp.cavity_count",
+    "error_type": "data error",
+    "error_message": "No data found"
+  },
+  {
+    "timestamp": "2025-02-05 17:03:31",
+    "question": "what are the machines present'\n\n",
+    "sql": "SELECT machine_name FROM machine_details",
+    "error_type": "ProgrammingError",
+    "error_message": "1045 (28000): Access denied for user 'root'@'106.195.42.0' (using password: YES)"
+  },
+  {
+    "timestamp": "2025-02-05 17:03:31",
+    "question": "what are the machines present'\n\n",
+    "sql": "SELECT machine_name FROM machine_details",
+    "error_type": "data error",
+    "error_message": "No data found"
+  },
+  {
+    "timestamp": "2025-02-07 12:33:34",
+    "question": "what is the oee of im08 during oct 2025",
+    "sql": "SELECT mpmh.overall_equipment_effectiveness_percentage FROM machine_performance_metrics_hourly mpmh JOIN machine_details md ON mpmh.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND DATE_FORMAT(mpmh.from_time, '%Y-%m') = '2025-10'",
+    "error_type": "data error",
+    "error_message": "No data found"
+  },
+  {
+    "timestamp": "2025-02-07 12:35:25",
+    "question": "what is the OEE of im08 during oct 2025",
+    "sql": "SELECT mpmh.overall_equipment_effectiveness_percentage FROM machine_performance_metrics_hourly mpmh JOIN machine_details md ON mpmh.ip_address = md.ip_address WHERE md.machine_name = 'im08' AND DATE_FORMAT(mpmh.from_time, '%Y-%m') = '2025-10'",
+    "error_type": "data error",
+    "error_message": "No data found"
+  },
+  {
+    "timestamp": "2025-02-07 12:36:10",
+    "question": "what is the prduction details of im08 during oct 2025",
+    "sql": "SELECT md.machine_name, mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts_difference, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts_difference, MAX(mp.actual_good_shots) - MIN(mp.actual_good_shots) AS good_shots_difference, MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots) AS total_shots_difference, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2025-10' GROUP BY md.machine_name, mp.mold_id, mp.cavity_count",
+    "error_type": "data error",
+    "error_message": "No data found"
+  },
+  {
+    "timestamp": "2025-02-07 12:36:29",
+    "question": "what is the prduction details of im08 during oct 2025",
+    "sql": "SELECT md.machine_name, mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts_difference, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts_difference, MAX(mp.actual_good_shots) - MIN(mp.actual_good_shots) AS good_shots_difference, MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots) AS total_shots_difference, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2025-10' GROUP BY md.machine_name, mp.mold_id, mp.cavity_count",
+    "error_type": "data error",
+    "error_message": "No data found"
+  },
+  {
+    "timestamp": "2025-02-07 12:37:05",
+    "question": "what is the prduction details of im08 during oct 2025",
+    "sql": "SELECT md.machine_name, mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts_difference, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts_difference, MAX(mp.actual_good_shots) - MIN(mp.actual_good_shots) AS good_shots_difference, MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots) AS total_shots_difference, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2025-10' GROUP BY md.machine_name, mp.mold_id, mp.cavity_count",
+    "error_type": "data error",
+    "error_message": "No data found"
+  },
+  {
+    "timestamp": "2025-02-07 12:59:18",
+    "question": "what is the OEE of im08 during oct 2025",
+    "sql": "SELECT mpmh.overall_equipment_effectiveness_percentage FROM machine_performance_metrics_hourly mpmh JOIN machine_details md ON mpmh.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND DATE_FORMAT(mpmh.from_time, '%Y-%m') = '2025-10'",
+    "error_type": "data error",
+    "error_message": "No data found"
+  },
+  {
+    "timestamp": "2025-02-08 11:33:10",
+    "question": "okay how many total parts, good parts, reject parts are produced for these molds ",
+    "sql": "SELECT mp.mold_id, SUM(good_parts_difference) AS total_good_parts, SUM(rejected_parts_difference) AS total_rejected_parts, SUM((MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count) AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.mold_id IN ('KNOB', '', 'BATTERYTHROUG', 'RESIDEOBASE', 'COVERBOTTOM', 'YELLOWCOVER', 'WHITECOVER', 'WHITECV', 'cellholdertop', 'CELLHOLDERMID') AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' GROUP BY mp.mold_id, mp.cavity_count",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'good_parts_difference' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-08 11:41:09",
+    "question": "add im17 also",
+    "sql": "SELECT md.machine_name, SUM(good_parts_difference) AS total_good_parts, SUM(rejected_parts_difference) AS total_rejected_parts, SUM(total_shots_difference) AS total_shots, SUM(total_shots_difference * cavity_count) AS total_parts FROM ( SELECT mp.part_number, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts_difference, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts_difference, MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots) AS total_shots_difference, mp.cavity_count FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name IN ('IM08', 'IM17') AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' GROUP BY mp.part_number, mp.cavity_count) AS differences GROUP BY md.machine_name",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'md.machine_name' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-08 11:43:31",
+    "question": "try again",
+    "sql": "SELECT md.machine_name, SUM(good_parts_difference) AS total_good_parts, SUM(rejected_parts_difference) AS total_rejected_parts, SUM(total_shots_difference) AS total_shots, SUM(total_shots_difference * cavity_count) AS total_parts FROM ( SELECT mp.part_number, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts_difference, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts_difference, MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots) AS total_shots_difference, mp.cavity_count FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name IN ('IM08', 'IM17') AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' GROUP BY mp.part_number, mp.cavity_count) AS differences GROUP BY md.machine_name",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'md.machine_name' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 14:30:29",
+    "question": "give me total parts, good parts, reject parts for each of the above molds\n",
+    "sql": "SELECT mp.mold_id, SUM(MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts)) AS total_good_parts, SUM(MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts)) AS total_rejected_parts, SUM((MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count) AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count",
+    "error_type": "DatabaseError",
+    "error_message": "1111 (HY000): Invalid use of group function"
+  },
+  {
+    "timestamp": "2025-02-14 14:30:32",
+    "question": "give me total parts, good parts, reject parts for each of the above molds\n",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:32:27",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts)) AS total_good_parts, SUM(MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts)) AS total_rejected_parts, SUM((MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count) AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count",
+    "error_type": "DatabaseError",
+    "error_message": "1111 (HY000): Invalid use of group function"
+  },
+  {
+    "timestamp": "2025-02-14 15:32:30",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:32:33",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:32:37",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:32:40",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:32:43",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:32:46",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:32:49",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:32:53",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:32:56",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:32:59",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:02",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:05",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:08",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:11",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:14",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:16",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "An error occurred. Please try again.",
+    "error_type": "ProgrammingError",
+    "error_message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'An error occurred. Please try again.' at line 1"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:17",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "An error occurred. Please try again.",
+    "error_type": "ProgrammingError",
+    "error_message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'An error occurred. Please try again.' at line 1"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:18",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "An error occurred. Please try again.",
+    "error_type": "ProgrammingError",
+    "error_message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'An error occurred. Please try again.' at line 1"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:21",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts)) AS total_good_parts, SUM(MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts)) AS total_rejected_parts, SUM((MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count) AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count",
+    "error_type": "DatabaseError",
+    "error_message": "1111 (HY000): Invalid use of group function"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:22",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "An error occurred. Please try again.",
+    "error_type": "ProgrammingError",
+    "error_message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'An error occurred. Please try again.' at line 1"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:23",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "An error occurred. Please try again.",
+    "error_type": "ProgrammingError",
+    "error_message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'An error occurred. Please try again.' at line 1"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:24",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "An error occurred. Please try again.",
+    "error_type": "ProgrammingError",
+    "error_message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'An error occurred. Please try again.' at line 1"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:27",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts)) AS total_good_parts, SUM(MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts)) AS total_rejected_parts, SUM((MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count) AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count",
+    "error_type": "DatabaseError",
+    "error_message": "1111 (HY000): Invalid use of group function"
+  },
+  {
+    "timestamp": "2025-02-14 15:33:30",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 16:05:27",
+    "question": "give me good parts, reject parts, total parts an d total parts for the above molds ",
+    "sql": "SELECT mp.mold_id, SUM(MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts)) AS total_good_parts, SUM(MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts)) AS total_rejected_parts, SUM((MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count) AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name IN ('IM08', 'IM09') AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' AND mp.mold_id IN ('KNOB', '', 'BATTERYTHROUG', 'RESIDEOBASE', 'WHITECOVER', 'WHITECV') GROUP BY mp.mold_id, mp.cavity_count",
+    "error_type": "DatabaseError",
+    "error_message": "1111 (HY000): Invalid use of group function"
+  },
+  {
+    "timestamp": "2025-02-14 16:05:31",
+    "question": "give me good parts, reject parts, total parts an d total parts for the above molds ",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.mold_id IN ('KNOB', '', 'BATTERYTHROUG', 'RESIDEOBASE', 'COVERBOTTOM', 'YELLOWCOVER', 'WHITECOVER', 'WHITECV', 'cellholdertop', 'CELLHOLDERMID') AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 17:51:23",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts_difference) AS total_good_parts, SUM(rejected_parts_difference) AS total_rejected_parts, SUM((MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count) AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.mold_id IN ('KNOB', '', 'BATTERYTHROUG', 'RESIDEOBASE', 'COVERBOTTOM', 'YELLOWCOVER', 'WHITECOVER', 'WHITECV', 'cellholdertop', 'CELLHOLDERMID') AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' GROUP BY mp.mold_id, mp.cavity_count",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'good_parts_difference' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 17:51:36",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts)) AS total_good_parts, SUM(MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts)) AS total_rejected_parts, SUM((MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count) AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.mold_id IN ('KNOB', '', 'BATTERYTHROUG', 'RESIDEOBASE', 'COVERBOTTOM', 'YELLOWCOVER', 'WHITECOVER', 'WHITECV', 'cellholdertop', 'CELLHOLDERMID') AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' GROUP BY mp.mold_id, mp.cavity_count",
+    "error_type": "DatabaseError",
+    "error_message": "1111 (HY000): Invalid use of group function"
+  },
+  {
+    "timestamp": "2025-02-14 19:05:10",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts_difference) AS total_good_parts, SUM(rejected_parts_difference) AS total_rejected_parts, SUM(total_parts_difference) AS total_parts FROM ( SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts_difference, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts_difference, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts_difference FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' GROUP BY mp.mold_id, mp.cavity_count) AS differences GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 19:05:14",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts_difference) AS total_good_parts, SUM(rejected_parts_difference) AS total_rejected_parts, SUM(total_parts_difference) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts_difference, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts_difference, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts_difference FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' GROUP BY mp.mold_id, mp.cavity_count) AS differences GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 19:08:19",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts_difference) AS total_good_parts, SUM(rejected_parts_difference) AS total_rejected_parts, SUM((MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count) AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' AND mp.mold_id IN ('KNOB', '', 'BATTERYTHROUG', 'RESIDEOBASE') GROUP BY mp.mold_id, mp.cavity_count",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'good_parts_difference' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-14 19:08:23",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts)) AS total_good_parts, SUM(MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts)) AS total_rejected_parts, SUM((MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count) AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.mold_id IN ('KNOB', '', 'BATTERYTHROUG', 'RESIDEOBASE', 'COVERBOTTOM', 'YELLOWCOVER', 'WHITECOVER', 'WHITECV', 'cellholdertop', 'CELLHOLDERMID') AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' GROUP BY mp.mold_id, mp.cavity_count",
+    "error_type": "DatabaseError",
+    "error_message": "1111 (HY000): Invalid use of group function"
+  },
+  {
+    "timestamp": "2025-02-14 19:08:27",
+    "question": "give me total parts, good parts, reject parts for each of the above molds",
+    "sql": "SELECT mp.mold_id, SUM(good_parts) AS total_good_parts, SUM(rejected_parts) AS total_rejected_parts, SUM(total_parts) AS total_parts FROM (SELECT mp.mold_id, MAX(mp.actual_good_parts) - MIN(mp.actual_good_parts) AS good_parts, MAX(mp.actual_rejected_parts) - MIN(mp.actual_rejected_parts) AS rejected_parts, (MAX(mp.actual_total_shots) - MIN(mp.actual_total_shots)) * mp.cavity_count AS total_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.mold_id IN ('KNOB', '', 'BATTERYTHROUG', 'RESIDEOBASE', 'COVERBOTTOM', 'YELLOWCOVER', 'WHITECOVER', 'WHITECV', 'cellholdertop', 'CELLHOLDERMID') AND DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10' GROUP BY mp.mold_id, mp.cavity_count) AS subquery GROUP BY mp.mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-15 14:30:05",
+    "question": "give me good parts, reject parts, total parts for each of the above mols",
+    "sql": "SELECT mp.mold_id, SUM(good_parts_diff) AS good_parts, SUM(rejected_parts_diff) AS rejected_parts, SUM(total_parts_diff) AS total_parts FROM ( SELECT mold_id, MAX(actual_good_parts) - MIN(actual_good_parts) AS good_parts_diff, MAX(actual_rejected_parts) - MIN(actual_rejected_parts) AS rejected_parts_diff, (MAX(actual_total_shots) - MIN(actual_total_shots)) * cavity_count AS total_parts_diff FROM machine_parameters WHERE mold_id IN ('KNOB', '', 'YELOWCOVER', 'YELLOWCOVER', 'INTERLOCK', 'COVERBOTTOM', 'COVERTOPGRINN', 'WHITECOVER', 'S4BODY', 'FANUNIT', 'CELLHOLDERMID', 'CELLHOLDERBOT', 'CEELHOLDERMID', 'cellholdertop') AND DATE_FORMAT(timestamp, '%Y-%m') = '2024-11' GROUP BY mold_id, cavity_count) AS subquery GROUP BY mold_id",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mp.mold_id' in 'field list'"
+  },
+  {
+    "timestamp": "2025-02-18 14:31:08",
+    "question": "give me the production deatils of all machines in dec 2024",
+    "sql": "An error occurred. Please try again.",
+    "error_type": "ProgrammingError",
+    "error_message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'An error occurred. Please try again.' at line 1"
+  },
+  {
+    "timestamp": "2025-02-19 18:21:17",
+    "question": "give me the total parts of im08 machines in dec 2024",
+    "sql": "WITH mold_data AS ( SELECT md.machine_name, mp.mold_id, mp.timestamp, mp.cavity_count, mp.actual_total_shots, LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND mp.timestamp BETWEEN '2024-12-01 00:00:00' AND '2024-12-31 23:59:59' ) SELECT SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN actual_total_shots - prev_total_shots ELSE actual_total_shots END) * cavity_count AS total_parts FROM mold_data WHERE prev_total_shots IS NOT NULL;",
+    "error_type": "ProgrammingError",
+    "error_message": "1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'mold_data.cavity_count'; this is incompatible with sql_mode=only_full_group_by"
+  },
+  {
+    "timestamp": "2025-02-19 18:21:50",
+    "question": "give me the total parts of im08 machines in dec 2024\n\n",
+    "sql": "WITH mold_data AS ( SELECT md.machine_name, mp.mold_id, mp.timestamp, mp.cavity_count, mp.actual_total_shots, LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND mp.timestamp BETWEEN '2024-12-01 00:00:00' AND '2024-12-31 23:59:59' ) SELECT SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN actual_total_shots - prev_total_shots ELSE actual_total_shots END) * cavity_count AS total_parts FROM mold_data WHERE prev_total_shots IS NOT NULL;",
+    "error_type": "ProgrammingError",
+    "error_message": "1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'mold_data.cavity_count'; this is incompatible with sql_mode=only_full_group_by"
+  },
+  {
+    "timestamp": "2025-02-25 09:21:08",
+    "question": "with ip address",
+    "sql": "An error occurred. Please try again.",
+    "error_type": "ProgrammingError",
+    "error_message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'An error occurred. Please try again.' at line 1"
+  },
+  {
+    "timestamp": "2025-02-25 09:21:13",
+    "question": "with ip address",
+    "sql": "An error occurred. Please try again.",
+    "error_type": "ProgrammingError",
+    "error_message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'An error occurred. Please try again.' at line 1"
+  },
+  {
+    "timestamp": "2025-02-28 07:15:14",
+    "question": "மண்டலம் 3 தற்காலிக, மொத்த பாகங்கள், அக்டோபரில் அனைத்து இயந்திரங்களுக்கும் வேலையில்லா நேரம்",
+    "translated": "Zone 3 Temporary, Total Parts, October All Machines Unemployed Time",
+    "sql": "SELECT md.machine_name, AVG(mpd.zone_3_temperature_celsius) AS avg_zone_3_temp, SUM(mp.actual_total_shots * mp.cavity_count) AS total_parts, SEC_TO_TIME(SUM(TIME_TO_SEC(dl.downtime_interval))) AS total_downtime FROM machine_details md JOIN machine_process_data mpd ON md.ip_address = mpd.ip_address JOIN machine_parameters mp ON md.ip_address = mp.ip_address LEFT JOIN downtime_logs dl ON md.ip_address = dl.ip_address WHERE DATE_FORMAT(mpd.timestamp, '%Y-%m') = '2024-10' AND DATE_FORMAT(dl.from_time, '%Y-%m') = '2024-10' GROUP BY md.machine_name",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-02-28 11:45:13",
+    "question": "okay for all machines ??",
+    "translated": "okay for all machines ??",
+    "sql": "WITH mold_data AS ( SELECT md.machine_name, mp.mold_id, mp.timestamp, mp.cavity_count, mp.actual_good_parts, mp.actual_rejected_parts, mp.actual_good_shots, mp.actual_total_shots, LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_parts, LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_rejected_parts, LAG(mp.actual_good_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_shots, LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10') SELECT md.machine_name, SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN (actual_total_shots - prev_total_shots) * cavity_count ELSE actual_total_shots * cavity_count END) AS total_parts, AVG(mpmh.overall_equipment_effectiveness_percentage) AS avg_oee FROM mold_data JOIN machine_details md ON mold_data.machine_name = md.machine_name LEFT JOIN machine_performance_metrics_hourly mpmh ON md.ip_address = mpmh.ip_address AND mpmh.from_time <= mold_data.timestamp AND mpmh.to_time >= mold_data.timestamp WHERE prev_good_parts IS NOT NULL GROUP BY md.machine_name;",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-02-28 11:52:13",
+    "question": "okay for all machines ??",
+    "translated": "okay for all machines ??",
+    "sql": "WITH mold_data AS ( SELECT md.machine_name, mp.mold_id, mp.timestamp, mp.cavity_count, mp.actual_good_parts, mp.actual_rejected_parts, mp.actual_good_shots, mp.actual_total_shots, LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_parts, LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_rejected_parts, LAG(mp.actual_good_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_shots, LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.timestamp BETWEEN '2024-10-01 00:00:00' AND '2024-10-31 23:59:59') SELECT md.machine_name, SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN (actual_total_shots - prev_total_shots) * cavity_count ELSE actual_total_shots * cavity_count END) AS total_parts, AVG(mpmh.overall_equipment_effectiveness_percentage) AS avg_oee FROM mold_data JOIN machine_details md ON mold_data.machine_name = md.machine_name LEFT JOIN machine_performance_metrics_hourly mpmh ON md.ip_address = mpmh.ip_address AND mpmh.from_time <= mold_data.timestamp AND mpmh.to_time >= mold_data.timestamp WHERE prev_good_parts IS NOT NULL GROUP BY md.machine_name, mold_id, cavity_count;",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-02-28 11:54:15",
+    "question": "okay for all machines ??",
+    "translated": "okay for all machines ??",
+    "sql": "WITH mold_data AS ( SELECT md.machine_name, mp.mold_id, mp.timestamp, mp.cavity_count, mp.actual_good_parts, mp.actual_rejected_parts, mp.actual_good_shots, mp.actual_total_shots, LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_parts, LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_rejected_parts, LAG(mp.actual_good_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_shots, LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.timestamp BETWEEN '2024-10-01 00:00:00' AND '2024-10-31 23:59:59') SELECT md.machine_name, SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN (actual_total_shots - prev_total_shots) * cavity_count ELSE actual_total_shots * cavity_count END) AS total_parts, AVG(mpmh.overall_equipment_effectiveness_percentage) AS avg_oee FROM mold_data JOIN machine_details md ON mold_data.machine_name = md.machine_name LEFT JOIN machine_performance_metrics_hourly mpmh ON md.ip_address = mpmh.ip_address AND mpmh.from_time <= mold_data.timestamp AND mpmh.to_time >= mold_data.timestamp WHERE prev_good_parts IS NOT NULL GROUP BY md.machine_name;",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-02-28 11:55:08",
+    "question": "okay for all machines ??",
+    "translated": "okay for all machines ??",
+    "sql": "WITH mold_data AS ( SELECT md.machine_name, mp.mold_id, mp.timestamp, mp.cavity_count, mp.actual_good_parts, mp.actual_rejected_parts, mp.actual_good_shots, mp.actual_total_shots, LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_parts, LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_rejected_parts, LAG(mp.actual_good_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_shots, LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.timestamp BETWEEN '2024-10-01 00:00:00' AND '2024-10-31 23:59:59') SELECT md.machine_name, SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN (actual_total_shots - prev_total_shots) * cavity_count ELSE actual_total_shots * cavity_count END) AS total_parts, AVG(mpmh.overall_equipment_effectiveness_percentage) AS avg_oee FROM mold_data JOIN machine_details md ON mold_data.machine_name = md.machine_name LEFT JOIN machine_performance_metrics_hourly mpmh ON md.ip_address = mpmh.ip_address AND mpmh.from_time <= mold_data.timestamp AND mpmh.to_time >= mold_data.timestamp WHERE prev_good_parts IS NOT NULL GROUP BY md.machine_name",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-02-28 12:00:26",
+    "question": "give me the total parts and OEE of im08 in oct 2024",
+    "translated": "give me the total parts and OEE of im08 in oct 2024",
+    "sql": "WITH part_data AS ( SELECT md.machine_name,mp.timestamp,mp.cavity_count,mp.actual_good_parts,mp.actual_rejected_parts,mp.actual_total_shots,LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_good_parts,LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_rejected_parts,LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND mp.timestamp BETWEEN '2024-10-01 00:00:00' AND '2024-10-31 23:59:59') SELECT SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN (actual_total_shots - prev_total_shots) * cavity_count ELSE actual_total_shots * cavity_count END) AS total_parts,AVG(mph.overall_equipment_effectiveness_percentage) AS OEE FROM part_data LEFT JOIN machine_performance_metrics_hourly mph ON part_data.ip_address = mph.ip_address AND part_data.timestamp BETWEEN mph.from_time AND mph.to_time;",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'part_data.ip_address' in 'on clause'"
+  },
+  {
+    "timestamp": "2025-02-28 12:02:23",
+    "question": "give me the total parts and OEE of im08 in oct 2024\n\n",
+    "translated": "give me the total parts and OEE of im08 in oct 2024\n\n",
+    "sql": "WITH mold_data AS ( SELECT md.machine_name, mp.timestamp, mp.cavity_count, mp.actual_good_parts, mp.actual_rejected_parts, mp.actual_total_shots, LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_good_parts, LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_rejected_parts, LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND mp.timestamp BETWEEN '2024-10-01 00:00:00' AND '2024-10-31 23:59:59') SELECT SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN (actual_total_shots - prev_total_shots) * cavity_count ELSE actual_total_shots * cavity_count END) AS total_parts, mpmh.overall_equipment_effectiveness_percentage FROM mold_data LEFT JOIN machine_performance_metrics_hourly mpmh ON mold_data.machine_name = 'IM08' AND mpmh.from_time BETWEEN mold_data.timestamp AND mold_data.timestamp WHERE prev_good_parts IS NOT NULL;",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-02-28 12:43:14",
+    "question": "give me the total parts and OEE of im08 in oct 2024",
+    "translated": "give me the total parts and OEE of im08 in oct 2024",
+    "sql": "WITH mold_data AS ( SELECT md.machine_name, mp.mold_id, mp.timestamp, mp.cavity_count, mp.actual_good_parts, mp.actual_rejected_parts, mp.actual_good_shots, mp.actual_total_shots, LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_parts, LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_rejected_parts, LAG(mp.actual_good_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_shots, LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND mp.timestamp BETWEEN '2024-10-01 00:00:00' AND '2024-10-31 23:59:59') SELECT SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN (actual_total_shots - prev_total_shots) * cavity_count ELSE actual_total_shots * cavity_count END) AS total_parts, AVG(mph.overall_equipment_effectiveness_percentage) AS OEE FROM mold_data LEFT JOIN machine_performance_metrics_hourly mph ON mold_data.ip_address = mph.ip_address AND mph.from_time <= mold_data.timestamp AND mph.to_time >= mold_data.timestamp;",
+    "error_type": "ProgrammingError",
+    "error_message": "1054 (42S22): Unknown column 'mold_data.ip_address' in 'on clause'"
+  },
+  {
+    "timestamp": "2025-02-28 12:49:53",
+    "question": "for all machines",
+    "translated": "for all machines",
+    "sql": "WITH mold_data AS ( SELECT md.machine_name, mp.mold_id, mp.timestamp, mp.cavity_count, mp.actual_good_parts, mp.actual_rejected_parts, mp.actual_good_shots, mp.actual_total_shots, LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_parts, LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_rejected_parts, LAG(mp.actual_good_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_shots, LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10') SELECT mold_data.machine_name, mold_id, SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN (actual_total_shots - prev_total_shots) * cavity_count ELSE actual_total_shots * cavity_count END) AS total_parts, AVG(mpmh.overall_equipment_effectiveness_percentage) AS OEE FROM mold_data LEFT JOIN machine_performance_metrics_hourly mpmh ON mold_data.machine_name = ( SELECT machine_name FROM machine_details WHERE ip_address = mpmh.ip_address) AND mpmh.from_time <= mold_data.timestamp AND mpmh.to_time >= mold_data.timestamp GROUP BY mold_data.machine_name, mold_id",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-02-28 13:01:42",
+    "question": "give me the total parts and OEE of im08 in oct 2024",
+    "translated": "give me the total parts and OEE of im08 in oct 2024",
+    "sql": "WITH mold_data AS ( SELECT md.machine_name, mp.timestamp, mp.cavity_count, mp.actual_good_parts, mp.actual_rejected_parts, mp.actual_good_shots, mp.actual_total_shots, LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_good_parts, LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_rejected_parts, LAG(mp.actual_good_shots) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_good_shots, LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND mp.timestamp BETWEEN '2024-10-01 00:00:00' AND '2024-10-31 23:59:59') SELECT SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN (actual_total_shots - prev_total_shots) * cavity_count ELSE actual_total_shots * cavity_count END) AS total_parts, AVG(mpmh.overall_equipment_effectiveness_percentage) AS avg_oee FROM mold_data JOIN machine_performance_metrics_hourly mpmh ON mold_data.timestamp BETWEEN mpmh.from_time AND mpmh.to_time AND mold_data.machine_name = ( SELECT machine_name FROM machine_details WHERE ip_address = mpmh.ip_address) WHERE prev_good_parts IS NOT NULL;",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-02-28 13:03:03",
+    "question": "give me the total parts and OEE of im08 in oct 2024\n\n",
+    "translated": "give me the total parts and OEE of im08 in oct 2024\n\n",
+    "sql": "WITH mold_data AS ( SELECT md.machine_name,mp.timestamp,mp.cavity_count,mp.actual_good_parts,mp.actual_rejected_parts,mp.actual_good_shots,mp.actual_total_shots,LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_good_parts,LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_rejected_parts,LAG(mp.actual_good_shots) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_good_shots,LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND mp.timestamp BETWEEN '2024-10-01 00:00:00' AND '2024-10-31 23:59:59') SELECT SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN (actual_total_shots - prev_total_shots) * cavity_count ELSE actual_total_shots * cavity_count END) AS total_parts, AVG(mpmh.overall_equipment_effectiveness_percentage) AS avg_oee FROM mold_data JOIN machine_performance_metrics_hourly mpmh ON mold_data.timestamp BETWEEN mpmh.from_time AND mpmh.to_time AND mold_data.machine_name = ( SELECT machine_name FROM machine_details WHERE ip_address = mpmh.ip_address) WHERE prev_good_parts IS NOT NULL;",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-03-04 11:14:50",
+    "question": "for all machines",
+    "translated": "for all machines",
+    "sql": "WITH mold_data AS ( SELECT md.machine_name, mp.timestamp, mp.cavity_count, mp.actual_good_parts, mp.actual_rejected_parts, mp.actual_good_shots, mp.actual_total_shots, LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_good_parts, LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_rejected_parts, LAG(mp.actual_good_shots) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_good_shots, LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y-%m') = '2024-10') SELECT mold_data.machine_name, SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN (actual_total_shots - prev_total_shots) * cavity_count ELSE actual_total_shots * cavity_count END) AS total_parts, AVG(mph.overall_equipment_effectiveness_percentage) AS OEE FROM mold_data LEFT JOIN machine_performance_metrics_hourly mph ON mold_data.machine_name = ( SELECT machine_name FROM machine_details WHERE machine_details.ip_address = mph.ip_address) AND mph.from_time <= mold_data.timestamp AND mph.to_time >= mold_data.timestamp WHERE prev_good_parts IS NOT NULL GROUP BY mold_data.machine_name;",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-03-07 16:18:13",
+    "question": "give me the total parts, good parts, bad parts for each and every machine for each month in 2024...and also i need speperate graph for each machine ",
+    "translated": "give me the total parts, good parts, bad parts for each and every machine for each month in 2024...and also i need speperate graph for each machine ",
+    "sql": "WITH monthly_data AS ( SELECT md.machine_name,DATE_FORMAT(mp.timestamp, '%Y-%m') AS month,mp.cavity_count,mp.actual_good_parts,mp.actual_rejected_parts,mp.actual_total_shots,LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name, DATE_FORMAT(mp.timestamp, '%Y-%m') ORDER BY mp.timestamp) AS prev_good_parts,LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name, DATE_FORMAT(mp.timestamp, '%Y-%m') ORDER BY mp.timestamp) AS prev_rejected_parts,LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name, DATE_FORMAT(mp.timestamp, '%Y-%m') ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE_FORMAT(mp.timestamp, '%Y') = '2024') SELECT machine_name,month,SUM(CASE WHEN actual_good_parts >= prev_good_parts THEN actual_good_parts - prev_good_parts ELSE actual_good_parts END) AS good_parts,SUM(CASE WHEN actual_rejected_parts >= prev_rejected_parts THEN actual_rejected_parts - prev_rejected_parts ELSE actual_rejected_parts END) AS rejected_parts,SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN actual_total_shots - prev_total_shots ELSE actual_total_shots END) * cavity_count AS total_parts FROM monthly_data WHERE prev_good_parts IS NOT NULL GROUP BY machine_name, month, cavity_count ORDER BY machine_name, month",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-03-14 10:41:44",
+    "question": "give me the oee of all mahcines in feb 2025 day wise",
+    "translated": "give me the oee of all mahcines in feb 2025 day wise",
+    "sql": "SELECT md.machine_name, DATE(mpm.from_time) AS date, ROUND(AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END), 2) AS AvgProductivity, ROUND((SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)), 2) AS QualityPercentage, ROUND(AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END), 2) AS AvgUtilization, ROUND((AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END) * (SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)) * AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END)) / 10000, 2) AS OEE_percentage FROM machine_performance_metrics_hourly AS mpm JOIN machine_details AS md ON md.ip_address = mpm.ip_address WHERE DATE_FORMAT(mpm.from_time, '%Y-%m') = '2025-02' GROUP BY md.machine_name, DATE(mpm.from_time) ORDER BY md.machine_name, DATE(mpm.from_time)",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-03-14 15:51:33",
+    "question": "sow me the trend in oee of all machines in oct 2024",
+    "translated": "sow me the trend in oee of all machines in oct 2024",
+    "sql": "SELECT md.machine_name, DATE(mpm.from_time) AS Date, ROUND(AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END), 2) AS avg_productivity_percentage, ROUND((SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)), 2) AS avg_quality_percentage, ROUND(AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END), 2) AS avg_utilization_percentage, ROUND((AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END) * (SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)) * AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END) / 10000), 2) AS avg_oee_percentage FROM machine_performance_metrics_hourly AS mpm JOIN machine_details AS md ON md.ip_address = mpm.ip_address WHERE mpm.from_time >= '2024-10-01 00:00:00' AND mpm.to_time <= '2024-10-31 23:59:59' GROUP BY md.machine_name, DATE(mpm.from_time) ORDER BY md.machine_name, DATE(mpm.from_time)",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-03-14 15:52:49",
+    "question": "show me the trend in oee of all machines in oct 2024",
+    "translated": "show me the trend in oee of all machines in oct 2024",
+    "sql": "SELECT md.machine_name, DATE(mpm.from_time) AS Date, ROUND(AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END), 2) AS avg_productivity_percentage, ROUND((SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)), 2) AS avg_quality_percentage, ROUND(AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END), 2) AS avg_utilization_percentage, ROUND((AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END) * (SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)) * AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END) / 10000), 2) AS avg_oee_percentage FROM machine_performance_metrics_hourly AS mpm JOIN machine_details AS md ON md.ip_address = mpm.ip_address WHERE mpm.from_time >= '2024-10-01 00:00:00' AND mpm.to_time <= '2024-10-31 23:59:59' GROUP BY md.machine_name, DATE(mpm.from_time) ORDER BY md.machine_name, DATE(mpm.from_time)",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-03-14 15:53:01",
+    "question": "sow me the trend in oee of all machines in oct 2024",
+    "translated": "sow me the trend in oee of all machines in oct 2024",
+    "sql": "SELECT md.machine_name, DATE(mpm.from_time) AS Date, ROUND(AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END), 2) AS avg_productivity_percentage, ROUND((SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)), 2) AS avg_quality_percentage, ROUND(AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END), 2) AS avg_utilization_percentage, ROUND((AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END) * (SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)) * AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END) / 10000), 2) AS avg_oee_percentage FROM machine_performance_metrics_hourly AS mpm JOIN machine_details AS md ON md.ip_address = mpm.ip_address WHERE mpm.from_time >= '2024-10-01 00:00:00' AND mpm.to_time <= '2024-10-31 23:59:59' GROUP BY md.machine_name, DATE(mpm.from_time) ORDER BY md.machine_name, DATE(mpm.from_time)",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-03-14 15:57:04",
+    "question": "show me the trend in oee of all machines in oct 2024",
+    "translated": "show me the trend in oee of all machines in oct 2024",
+    "sql": "SELECT md.machine_name, DATE(mpm.from_time) AS Date, ROUND(AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END), 2) AS avg_productivity_percentage, ROUND((SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)), 2) AS avg_quality_percentage, ROUND(AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END), 2) AS avg_utilization_percentage, ROUND((AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END) * (SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)) * AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END) / 10000), 2) AS avg_oee_percentage FROM machine_performance_metrics_hourly AS mpm JOIN machine_details AS md ON md.ip_address = mpm.ip_address WHERE mpm.from_time >= '2024-10-01 00:00:00' AND mpm.to_time <= '2024-10-31 23:59:59' GROUP BY md.machine_name, DATE(mpm.from_time) ORDER BY md.machine_name, DATE(mpm.from_time)",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-03-14 15:58:58",
+    "question": "show me the trend in oee of all machines in oct 2024",
+    "translated": "show me the trend in oee of all machines in oct 2024",
+    "sql": "SELECT md.machine_name, DATE(mpm.from_time) AS Date, ROUND(AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END), 2) AS avg_productivity_percentage, ROUND((SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)), 2) AS avg_quality_percentage, ROUND(AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END), 2) AS avg_utilization_percentage, ROUND((AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END) * (SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)) * AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END) / 10000), 2) AS avg_oee_percentage FROM machine_performance_metrics_hourly AS mpm JOIN machine_details AS md ON md.ip_address = mpm.ip_address WHERE mpm.from_time >= '2024-10-01 00:00:00' AND mpm.to_time <= '2024-10-31 23:59:59' GROUP BY md.machine_name, DATE(mpm.from_time) ORDER BY md.machine_name, DATE(mpm.from_time)",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  },
+  {
+    "timestamp": "2025-03-14 15:59:16",
+    "question": "show me the trend in oee of all machines in oct 2024\n\n",
+    "translated": "show me the trend in oee of all machines in oct 2024\n\n",
+    "sql": "SELECT md.machine_name, DATE(mpm.from_time) AS Date, ROUND(AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END), 2) AS avg_productivity_percentage, ROUND((SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)), 2) AS avg_quality_percentage, ROUND(AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END), 2) AS avg_utilization_percentage, ROUND((AVG(CASE WHEN mpm.utilization_percentage > 0 THEN mpm.utilization_percentage WHEN mpm.utilization_percentage = 0 AND EXISTS ( SELECT 1 FROM downtime_logs dt WHERE dt.from_time = mpm.from_time AND dt.to_time = mpm.to_time AND dt.downtime_category = 'unplanned' AND NOT EXISTS ( SELECT 1 FROM downtime_logs dt2 WHERE dt2.from_time = mpm.from_time AND dt2.to_time = mpm.to_time AND dt2.downtime_category != 'unplanned' AND dt2.downtime_approval = 3)) THEN mpm.utilization_percentage ELSE NULL END) * (SUM(mpm.good_parts_count) * 100.0 / NULLIF(SUM(mpm.actual_part_production), 0)) * AVG(CASE WHEN mpm.productivity_percentage > 0 THEN mpm.productivity_percentage ELSE NULL END) / 10000), 2) AS avg_oee_percentage FROM machine_performance_metrics_hourly AS mpm JOIN machine_details AS md ON md.ip_address = mpm.ip_address WHERE mpm.from_time >= '2024-10-01 00:00:00' AND mpm.to_time <= '2024-10-31 23:59:59' GROUP BY md.machine_name, DATE(mpm.from_time) ORDER BY md.machine_name, DATE(mpm.from_time)",
+    "error_type": "DatabaseError",
+    "error_message": "3024 (HY000): Query execution was interrupted, maximum statement execution time exceeded"
+  }
+]

@@ -1,11 +1,6 @@
-.env
 myenv/
 chat_histories/
 temp_audio/
 app.py
 appnew.py
 copy_1.py
-error_logs.json
-query_logs.json
-similar.py
-publisher.py
