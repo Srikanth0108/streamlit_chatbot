@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import streamlit as st
-st.set_page_config(page_title="Shibaura Machines AI Buddy", page_icon="logo2.png", layout="centered")
+st.set_page_config(page_title="AI-Buddy", page_icon="logo2.png", layout="centered")
 
 import os
 import mysql.connector
