@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import streamlit as st
-st.set_page_config(page_title="AI-Buddy", page_icon="logo2.png", layout="centered")
+st.set_page_config(page_title="AI-buddy", page_icon="logo2.png", layout="centered")
 
 import os
 import mysql.connector
@@ -41,20 +41,15 @@ from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 import nltk
 from difflib import SequenceMatcher
-
 # Configure Google API
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-# this is for copy button to work, unique id is required for each message. 
-if "global_message_id" not in st.session_state:
+if "global_message_id" not in st.session_state: # this is for copy button to work, unique id is required for each message. 
     st.session_state.unique_copy_id = 1
-
-#initialize the similarity search
 try:
     nltk.data.find('corpora/stopwords')
 except LookupError:
     nltk.download('stopwords', quiet=True)
-
 # Define the comprehensive prompt
 SYSTEM_PROMPT = """
 You are an expert in converting English questions to MYSQL queries!. The MYSQL database has the following tables:
@@ -352,6 +347,8 @@ how many good parts,rejected parts, good shots, total shots, total parts produce
 SQL:WITH mold_data AS (SELECT md.machine_name,mp.mold_id,mp.timestamp,mp.cavity_count,mp.actual_good_parts,mp.actual_rejected_parts,mp.actual_good_shots,mp.actual_total_shots,LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_parts,LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_rejected_parts,LAG(mp.actual_good_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_good_shots,LAG(mp.actual_total_shots) OVER (PARTITION BY md.machine_name, mp.mold_id ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name = 'IM08' AND mp.timestamp BETWEEN '2024-12-01 00:00:00' AND '2024-12-31 23:59:59')SELECT machine_name,mold_id,SUM(CASE WHEN actual_good_parts >= prev_good_parts THEN actual_good_parts - prev_good_parts ELSE actual_good_parts END) AS good_parts,SUM(CASE WHEN actual_rejected_parts >= prev_rejected_parts THEN actual_rejected_parts - prev_rejected_parts ELSE actual_rejected_parts END) AS rejected_parts,SUM(CASE WHEN actual_good_shots >= prev_good_shots THEN actual_good_shots - prev_good_shots ELSE actual_good_shots END) AS good_shots,SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN actual_total_shots - prev_total_shots ELSE actual_total_shots END) AS total_shots,SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN actual_total_shots - prev_total_shots ELSE actual_total_shots END) * cavity_count AS total_parts FROM mold_data WHERE prev_good_parts IS NOT NULL GROUP BY machine_name, mold_id, cavity_count;
 how many good parts,reject parts are produced for im08, im09 for oct 2024?
 SQL:WITH part_data AS (SELECT md.machine_name,mp.part_number,mp.timestamp,mp.cavity_count,mp.actual_good_parts,mp.actual_rejected_parts,LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name, mp.part_number ORDER BY mp.timestamp) AS prev_good_parts,LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name, mp.part_number ORDER BY mp.timestamp) AS prev_rejected_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE md.machine_name IN ('IM08', 'IM09')AND mp.timestamp BETWEEN '2024-10-01 00:00:00' AND '2024-10-31 23:59:59')SELECT machine_name,SUM(CASE WHEN actual_good_parts >= prev_good_parts THEN actual_good_parts - prev_good_parts ELSE actual_good_parts END) AS total_good_parts,SUM(CASE WHEN actual_rejected_parts >= prev_rejected_parts THEN actual_rejected_parts - prev_rejected_parts ELSE actual_rejected_parts END) AS total_rejected_parts FROM part_data WHERE prev_good_parts IS NOT NULL GROUP BY machine_name;
+how many good parts, reject parts are produced for each machine today?
+SQL:WITH part_data AS (SELECT md.machine_name,mp.part_number,mp.timestamp,mp.cavity_count,mp.actual_good_parts,mp.actual_rejected_parts,LAG(mp.actual_good_parts) OVER (PARTITION BY md.machine_name, mp.part_number ORDER BY mp.timestamp) AS prev_good_parts,LAG(mp.actual_rejected_parts) OVER (PARTITION BY md.machine_name, mp.part_number ORDER BY mp.timestamp) AS prev_rejected_parts FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE DATE(mp.timestamp) = CURDATE())SELECT machine_name,SUM(CASE WHEN actual_good_parts >= prev_good_parts THEN actual_good_parts - prev_good_parts ELSE actual_good_parts END) AS total_good_parts,SUM(CASE WHEN actual_rejected_parts >= prev_rejected_parts THEN actual_rejected_parts - prev_rejected_parts ELSE actual_rejected_parts END) AS total_rejected_parts FROM part_data WHERE prev_good_parts IS NOT NULL GROUP BY machine_name;
 what are the good parts, rejected parts, total parts for the molds KNOB,BATTERYTHROUG, RESIDEOBASE, COVERBOTTOM, YELLOWCOVER, WHITECOVER, WHITECV, cellholdertop, CELLHOLDERMID during oct 2024?
 SQL:WITH mold_data AS (SELECT mp.mold_id,mp.timestamp,mp.cavity_count,mp.actual_good_parts,mp.actual_rejected_parts,mp.actual_total_shots,LAG(mp.actual_good_parts) OVER (PARTITION BY mp.mold_id ORDER BY mp.timestamp) AS prev_good_parts,LAG(mp.actual_rejected_parts) OVER (PARTITION BY mp.mold_id ORDER BY mp.timestamp) AS prev_rejected_parts,LAG(mp.actual_total_shots) OVER (PARTITION BY mp.mold_id ORDER BY mp.timestamp) AS prev_total_shots FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.mold_id IN ('KNOB', 'BATTERYTHROUG', 'RESIDEOBASE', 'COVERBOTTOM', 'YELLOWCOVER', 'WHITECOVER', 'WHITECV', 'cellholdertop', 'CELLHOLDERMID')AND mp.timestamp BETWEEN '2024-10-01 00:00:00' AND '2024-10-31 23:59:59')SELECT mold_id,SUM(CASE WHEN actual_good_parts >= prev_good_parts THEN actual_good_parts - prev_good_parts ELSE actual_good_parts END) AS good_parts,SUM(CASE WHEN actual_rejected_parts >= prev_rejected_parts THEN actual_rejected_parts - prev_rejected_parts ELSE actual_rejected_parts END) AS rejected_parts,SUM(CASE WHEN actual_total_shots >= prev_total_shots THEN actual_total_shots - prev_total_shots ELSE actual_total_shots END) * cavity_count AS total_parts FROM mold_data WHERE prev_good_parts IS NOT NULL GROUP BY mold_id, cavity_count;
 give me the parts produced for im06 in oct 2024? or what is the total parts produced for im06 in octobar 2024?
@@ -483,9 +480,15 @@ SQL:WITH latest_edge_minder AS (SELECT ip_address, minder_ip_address, edge_minde
 SQL:WITH latest_edge_minder AS (SELECT ip_address, minder_ip_address, edge_minder_connection_status, timestamp,ROW_NUMBER() OVER (PARTITION BY ip_address ORDER BY timestamp DESC) AS rn FROM edge_minder_connection_logs),latest_hmi_minder AS (SELECT ip_address, hmi_minder_connection_status, connection_timestamp,ROW_NUMBER() OVER (PARTITION BY ip_address ORDER BY connection_timestamp DESC) AS rn FROM hmi_minder_connection_logs),recent_machine_parameters AS (SELECT ip_address,machine_mode,pump_status,heater_status,timestamp,ROW_NUMBER() OVER (PARTITION BY ip_address ORDER BY timestamp DESC) AS rn FROM machine_parameters WHERE timestamp >= NOW() - INTERVAL 300 SECOND)SELECT md.machine_name,md.ip_address,CASE WHEN em.edge_minder_connection_status = 0 OR hm.hmi_minder_connection_status = 0 THEN 'grey' WHEN em.edge_minder_connection_status = 1 AND hm.hmi_minder_connection_status = 1 THEN CASE WHEN mp.pump_status = 0 OR mp.heater_status = 0 THEN 'red' WHEN mp.machine_mode = 3 THEN 'yellow' WHEN mp.machine_mode = 4 THEN 'green' ELSE 'grey' END ELSE 'grey'END AS color_code, CASE WHEN em.edge_minder_connection_status = 0 THEN 'Current status not available' WHEN hm.hmi_minder_connection_status = 0 THEN 'Current status not available' WHEN mp.ip_address IS NULL THEN 'Current status not available' WHEN mp.machine_mode IN (3, 4) AND mp.pump_status = 1 AND mp.heater_status = 1 THEN 'Machine running' ELSE 'Machine not running' END AS machine_status FROM machine_details md LEFT JOIN latest_edge_minder em ON md.ip_address = em.ip_address AND em.rn = 1 LEFT JOIN latest_hmi_minder hm ON md.ip_address = hm.ip_address AND hm.rn = 1 LEFT JOIN recent_machine_parameters mp ON md.ip_address = mp.ip_address AND mp.rn = 1 WHERE md.machine_name = 'IM06';
 3.which machine was running yesterday?
 SQL:SELECT md.machine_name FROM machine_details md JOIN machine_parameters mp ON md.ip_address = mp.ip_address WHERE DATE(mp.timestamp) = DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND mp.machine_mode IN (3, 4) AND mp.pump_status = 1 AND mp.heater_status = 1 GROUP BY md.machine_name;
-3.give me avg, min, max for latest 10 cycle time of im06?
+4.When was the last time im08 was running?
+SQL:SELECT md.machine_name, MAX(mp.timestamp) AS last_run_time FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.pump_status = 1 AND mp.heater_status = 1 AND mp.machine_mode IN (3, 4) AND md.machine_name = 'im08'GROUP BY md.machine_name;
+5.When was the last time each machine ran?
+SQL:SELECT md.machine_name, MAX(mp.timestamp) AS last_run_time FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.pump_status = 1 AND mp.heater_status = 1 AND mp.machine_mode IN (3, 4) GROUP BY md.machine_name;
+6.which machines ran today?
+SQL:SELECT md.machine_name, MAX(mp.timestamp) AS last_run_time FROM machine_parameters mp JOIN machine_details md ON mp.ip_address = md.ip_address WHERE mp.pump_status = 1 AND mp.heater_status = 1 AND mp.machine_mode IN (3, 4) AND DATE(mp.timestamp) = CURDATE() GROUP BY md.machine_name;
+7.give me avg, min, max for latest 10 cycle time of im06?
 SQL:SELECT AVG(cycle_time_seconds) AS avg_cycle_time, MIN(cycle_time_seconds) AS min_cycle_time, MAX(cycle_time_seconds) AS max_cycle_time FROM (SELECT cycle_time_seconds FROM machine_process_data WHERE ip_address = (SELECT ip_address FROM machine_details WHERE machine_name = 'IM06') ORDER BY timestamp DESC LIMIT 10) AS latest_10_cycles;
-4. what is the cycle time at which YELLOWCOVER mold ran in im08 in dec?
+8. what is the cycle time at which YELLOWCOVER mold ran in im08 in dec?
 SQL:SELECT AVG(mpd.cycle_time_seconds) AS average_cycle_time FROM machine_process_data mpd JOIN machine_details md ON mpd.ip_address = md.ip_address JOIN machine_parameters mp ON mp.ip_address = mpd.ip_address AND mp.timestamp = mpd.timestamp WHERE md.machine_name = 'IM08' AND mp.mold_id = 'YELLOWCOVER' AND DATE_FORMAT(mpd.timestamp, '%Y-%m') = '2024-12';
 
 if any question specifies with respect to month use DATE_FORMAT function dont use STRFTIME.
@@ -498,7 +501,6 @@ For current data(now),don't use timestamp DESC LIMIT 1, use the NOW()) <= 300 an
 if 'chat_history' not in st.session_state:
     st.session_state.chat_history = []
 
-# Initialize session state for chat context
 if 'context' not in st.session_state:
     st.session_state.context = {
         'last_query_type': None,
@@ -506,7 +508,6 @@ if 'context' not in st.session_state:
         'last_sql': None
     }
 
-# The clean_sql_query(query) function sanitizes and formats an SQL query by removing unnecessary spaces, standardizing syntax, and preventing SQL injection risks.
 def clean_sql_query(query):
     # Remove 'sql' prefix if it exists
     query = re.sub(r'^sql\s+', '', query.strip(), flags=re.IGNORECASE)
@@ -521,7 +522,6 @@ def clean_sql_query(query):
     cleaned = cleaned.replace('`', '')
     return cleaned
 
-#The extract_query_context() function extracts key components from an SQL query, such as table names, selected columns, and conditions, to provide contextual information about the query.
 def extract_query_context(sql_query):
     """Extract context from SQL query for future reference"""
     context = {
@@ -548,7 +548,6 @@ def extract_query_context(sql_query):
     
     return context
 
-#The find_similar_question_advanced() function searches for similar questions in a JSON file based on a similarity threshold. It helps find relevant past queries by comparing their similarity to the given question.
 def find_similar_question_advanced(json_file, question, threshold=0.6):
     """
     Searches through the JSON file for a similar question with advanced matching techniques.
@@ -627,7 +626,7 @@ def find_similar_question_advanced(json_file, question, threshold=0.6):
     
     return best_match_question, best_match_sql
 
-#The preprocess_text() function cleans and normalizes text by removing special characters, converting to lowercase, and eliminating extra spaces. This helps in preparing text for further processing like NLP tasks or similarity matching.
+
 def preprocess_text(text):
     """Preprocess text for better matching"""
     # Convert to lowercase
@@ -651,7 +650,6 @@ def preprocess_text(text):
     
     return text
 
-#The extract_important_terms() function extracts key terms from the given text by removing stop words and applying stemming. This helps in reducing text complexity while preserving essential meaning for NLP tasks like search or classification.
 def extract_important_terms(text, stemmer, stop_words):
     """Extract and stem important terms from the text"""
     # Split into words
@@ -663,7 +661,6 @@ def extract_important_terms(text, stemmer, stop_words):
     # Create counter with frequency
     return Counter(terms)
 
-#The calculate_term_overlap() function computes the overlap between two sets of terms, measuring how many terms are shared. This is useful for assessing text similarity in NLP tasks.
 def calculate_term_overlap(terms1, terms2):
     """Calculate overlap score between two term sets"""
     # Find common terms
@@ -678,7 +675,6 @@ def calculate_term_overlap(terms1, terms2):
     
     return (2 * overlap_score) / total_terms if total_terms > 0 else 0
 
-#The combined_similarity() function calculates a similarity score by combining text-based similarity (e.g., string matching) and term overlap. This helps in measuring the overall similarity between two texts for NLP applications.
 def combined_similarity(text1, text2, terms1, terms2, overlap_score):
     """Calculate combined similarity using multiple metrics"""
     # Sequential matching score (like difflib but optimized)
@@ -696,7 +692,6 @@ def combined_similarity(text1, text2, terms1, terms2, overlap_score):
     
     return combined
 
-#The entity_recognition_score() function evaluates the similarity between two texts based on named entity recognition (NER). It identifies and compares entities like names, locations, and organizations to measure how closely the texts are related.
 def entity_recognition_score(text1, text2):
     """Identify and compare database-specific entities in both texts"""
     # Look for patterns like table names, column references, numbers
@@ -721,7 +716,6 @@ def entity_recognition_score(text1, text2):
     # Normalize score
     return score / len(patterns) if patterns else 0
 
-#The get_gemini_response() function interacts with the Gemini model to generate a SQL. It utilizes the current question, chat history, and context, along with optional inputs like previous SQL queries, errors, and similar questions to provide a more relevant and informed SQL.
 def get_gemini_response(question, chat_history, current_context, previous_sql=None, previous_error=None,similar_question=None,similar_sql=None):
     try:
         model = genai.GenerativeModel('gemini-2.0-flash')
@@ -781,7 +775,6 @@ def get_gemini_response(question, chat_history, current_context, previous_sql=No
         print("Error in generating response:", e)
         return "An error occurred. Please try again."
 
-#The read_sql_query() function executes an SQL query on the given database connection. It handles query retries in case of failures and incorporates additional context from the question and translated speech to improve error handling or debugging.
 def read_sql_query(sql, db,question,translated_speech,retry_count=0, max_retries=2):
     try:
         conn = mysql.connector.connect(
@@ -822,7 +815,7 @@ def read_sql_query(sql, db,question,translated_speech,retry_count=0, max_retries
             
         log_error(question,translated_speech,sql,error_type,e)
         return error_type, e,sql
-#The generate_explanation() function generates a natural language explanation for the SQL query result. It uses the provided DataFrame, question, SQL query, and chat history to create a contextual response in the specified language.
+
 def generate_explanation(df, question,sql,language,chat_history):
     """Generate a natural language explanation of the query results"""
     model = genai.GenerativeModel('gemini-2.0-flash')
@@ -863,7 +856,6 @@ def generate_explanation(df, question,sql,language,chat_history):
     except Exception as e:
         return "Error in generating explanation"
 
-#The detect_visualization_request() function determines if the user's question or SQL query implies a need for data visualization. It analyzes the query, dataset, language, and chat history to suggest an appropriate visualization type, such as a bar chart or line graph.
 def detect_visualization_request(question,sql,df,lang,chat_history):
     """Detect if the user is requesting a visualization and what type using Gemini model"""
     
@@ -910,7 +902,6 @@ def detect_visualization_request(question,sql,df,lang,chat_history):
         print(f"Error while generating visualization request: {e}")
         return None
 
-#The create_visualization() function generates a data visualization based on the user's question and the DataFrame. It uses the specified visualization type (e.g., bar chart, line chart) to present the data in an informative way.
 def create_visualization(question,df, viz_type):
     """Create the visualization based on the type and data using code generated by Gemini"""
     try:
@@ -932,7 +923,8 @@ def create_visualization(question,df, viz_type):
         Don't put backticks or any other markdown in the code.
         Don't put python word at the front of the code.
         At the end don't print or return fig.
-        Don't need fig.show().
+        Don't use functions like def plot_oee_trends(df) or def plot_cycle_time(df). Give the code directly.
+        At the end of the code, ensure that a figure object named 'fig' is created.
         """
         
         # Send the prompt to Gemini and get the generated code
@@ -994,7 +986,7 @@ def create_visualization(question,df, viz_type):
             template='plotly_white'
         )
         return fig
-#The format_response() handles the maximum query execution error with respect to the retries and after the proper generation of SQL, this function handles the explanation, grapgh detectiona and generation.
+
 def format_response(data, columns, question_type,chat_history,original_question,sql,lang,translated_speech):
     """Format the response in a more conversational way"""
     try:        
@@ -1027,7 +1019,6 @@ def format_response(data, columns, question_type,chat_history,original_question,
             return "Query maximum time limit reached"
         return "An error occurred while formatting the response."
 
-#The reset_chat() function clears the chat history and resets any stored context, allowing for a fresh conversation without previous interactions influencing responses.
 def reset_chat():
     """Reset all chat-related session state variables"""
     st.session_state.chat_history = []
@@ -1040,8 +1031,11 @@ def reset_chat():
     st.session_state.chart_counter = 0
     if 'current_share_id' in st.session_state:
         del st.session_state.current_share_id
+    st.session_state.df_size = 0
+    st.session_state.dialog_open = -1
 
-#The get_language_options() function retrieves the available language options for user interaction. It returns a list of supported languages or responses, translations, or interface customization.
+# [Keep all your existing functions here]
+
 def get_language_options():
     return {
         'English': 'en-US',
@@ -1066,7 +1060,6 @@ def get_language_options():
         'Marathi': 'mr-IN'
     }
 
-#The get_source_language_code() function maps a given language code to its corresponding source language code. It ensures compatibility with translation or localization services by returning the correct language format.
 def get_source_language_code(lang_code):
     lang_mapping = {
         'en-US': 'en', 'hi-IN': 'hi', 'es-ES': 'es', 'fr-FR': 'fr', 
@@ -1077,7 +1070,6 @@ def get_source_language_code(lang_code):
     }
     return lang_mapping.get(lang_code, 'auto')
 
-#The translate_to_english() function translates the given text from the specified source language to English. It helps in processing multilingual inputs for standardization and further analysis.
 def translate_to_english(text, source_lang):
     if not text:
         return ""
@@ -1094,12 +1086,10 @@ def translate_to_english(text, source_lang):
         st.error(f"Translation error: {str(e)}")
         return f"Translation failed for: {text}"
 
-#The get_unique_message_id() function generates a unique identifier for a message. This ensures proper tracking and referencing of messages in a conversation or logging system.
 def get_unique_message_id():
     st.session_state.unique_copy_id += 1
     return st.session_state.unique_copy_id   
 
-#flask for TTS
 app = Flask(__name__)
 CORS(app) 
 app.logger.setLevel(logging.INFO)
@@ -1534,7 +1524,6 @@ def copy_audio_script(text_to_copy, gif_base64, speaker_idle_icon_base64, speake
     """
     components.html(copy_script, height=42)
 
-#The function copy_to_clipboard_script handles the copy button.
 def copy_to_clipboard_script(text_to_copy, gif_base64, unique_copy_id):
     copy_script = f"""
     <style>
@@ -1578,7 +1567,7 @@ def copy_to_clipboard_script(text_to_copy, gif_base64, unique_copy_id):
     """
     components.html(copy_script, height=42)
 
-#The function export_chat_history handles downloading of the chat in a .html format 
+
 def export_chat_history(chat_history, language):
     """
     Export chat history to a polished HTML format with modern design, professional styling, and properly positioned user/bot icons.
@@ -1772,7 +1761,7 @@ def export_chat_history(chat_history, language):
     
     html_content += "</div></body></html>"
     return html_content
-#The function download_chat_button handles the download button in the side bar   
+    
 def download_chat_button(chat_history, language):
     """
     Create a download button for chat export.
@@ -1819,7 +1808,8 @@ def download_chat_button(chat_history, language):
     else:
         st.warning("No chat history to export.")
 
-# flask for share chat
+# flask code begins here        
+
 def get_db_connection():
     return mysql.connector.connect(
         host=os.getenv("MYSQL_HOST"),
@@ -1942,7 +1932,6 @@ def show_share_dialog(share_link):
     copy_to_clipboard_script(share_link, gif_base64,unique_copy_id)
     st.write("Share this link with others to view the chat.") 
 
-#The log_query() function records details of a user's query. It logs the question, language, translated speech, SQL query, explanation, visualization type, and figure, along with an optional timestamp for tracking.
 def log_query(question,lang, translated_speech, sql_query, explanation, viz_type,figure, timestamp=None):
     if timestamp is None:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")    
@@ -1998,7 +1987,6 @@ def log_query(question,lang, translated_speech, sql_query, explanation, viz_type
     except Exception as e:
         print(f"Error logging query: {e}")
 
-#The log_error() function records errors that occur during query execution. It logs the question, translated speech, SQL query, error type, and exception details, along with an optional timestamp for debugging and analysis.
 def log_error(question,translated_speech,sql,error_type,e,timestamp=None):
     if timestamp is None:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")    
@@ -2040,7 +2028,6 @@ cookies = EncryptedCookieManager(
 if not cookies.ready():
     st.stop()
 
-#The db_user_credentials function is used for retriveing the user credentials for login.
 def db_user_credentials(sql, db):
     try:
         conn = mysql.connector.connect(
@@ -2059,7 +2046,7 @@ def db_user_credentials(sql, db):
         error_type = type(e).__name__  # Get the error type
         print(f"[{error_type}] Database query error: {e}")
         return None, None
-#User login query 
+
 def get_user_credentials(username):
     """Fetch the hashed password for a given username from the database."""
     sql = f"SELECT hashed_password,full_name FROM user_credentials WHERE email_address = '{username}'"
@@ -2068,12 +2055,10 @@ def get_user_credentials(username):
         return rows[0][0], rows[0][1]  # The first column of the first row contains the hashed password
     return None,None
 
-#Implementing bcrypt to check the password stored and entered by user are same.
 def check_password(provided_password, stored_hashed_password):
     """Validate the provided password against the stored hashed password."""
     return bcrypt.checkpw(provided_password.encode('utf-8'), stored_hashed_password.encode('utf-8'))
 
-#The check_auth() function verifies whether the user is authenticated. It checks for valid credentials or session tokens to grant or restrict access to protected resources.
 def check_auth():
     """Check username and password for access."""
     # Check if the user is logged in via cookies
@@ -2118,17 +2103,15 @@ def check_auth():
         return False
     else:
         return True
-#The get_base64_image(file_path) function reads an image file from the specified path and converts it into a Base64-encoded string. This allows images to be embedded in web pages or transmitted as text. 
+    
 def get_base64_image(file_path):
     with open(file_path, "rb") as file:
         return base64.b64encode(file.read()).decode()
-
-#The stop_processing() function halts any ongoing processing or computation. It is used to gracefully stop tasks, free resources, or handle user-triggered cancellations.    
+    
 def stop_processing():
     st.session_state.stop_requested = True
     st.session_state.processing = False    
 
-#The main() function serves as the entry point of the program. It initializes necessary components, sets up configurations, and runs the core logic of the application.
 def main():       
     if not check_auth():
         return
@@ -2279,6 +2262,12 @@ def main():
 
     if 'stop_requested' not in st.session_state:
        st.session_state.stop_requested = False
+    
+    if 'df_size' not in st.session_state:
+        st.session_state.df_size = 0
+    
+    if 'dialog_open' not in st.session_state:
+        st.session_state.dialog_open = -1
 
 # Function to handle stop button click
 
@@ -2346,6 +2335,8 @@ def main():
                                 hide_index=True,
                                 key=f"df_{i}"
                             )
+                    print ("Dataframe memory",df.memory_usage(deep=True).sum())
+                    st.session_state.df_size+=df.memory_usage(deep=True).sum()
                 else:
                     # For regular text content, create a placeholder for typing effect
                     placeholder = st.empty()
@@ -2373,6 +2364,19 @@ def main():
                 thumbs_up_icon_base64=get_base64_image("thumbsup.png")
                 thumbs_down_icon_base64=get_base64_image("thumbsdown.png")
                 copy_audio_script(text_to_copy, gif_base64,speaker_idle_icon_base64,speaker_playing_icon_base64,thumbs_up_icon_base64,thumbs_down_icon_base64,unique_copy_id,selected_language_code)
+                total_chat_length = st.session_state.df_size
+                print(f'Total dataframe memory: {total_chat_length}')
+                if total_chat_length > 1000000:
+                    st.session_state.dialog_open += 1
+                    if st.session_state.dialog_open % 5 == 0:
+                        @st.dialog("Chat Limit Reached")
+                        def show_dialog():
+                            st.write("The context may not be followed beyond this point. Please start a new chat to continue.")
+                            
+                            if st.button("New Chat", type="primary", key="dialog_new_chat_button"):
+                                reset_chat()
+                                st.rerun()
+                        show_dialog()
             # For already displayed assistant messages, show them immediately
             else:
                 if isinstance(message["content"], dict):
@@ -2478,12 +2482,12 @@ def main():
             # Clean up the temporary file
             os.unlink(temp_audio_path)
 
- 
+
     col1, col2 = st.columns([12, 1])
 
     with col1:
         question = st.chat_input(
-            "AI Buddy can make mistakes. Check important info.", 
+            "Ask me anything about the machines...", 
             disabled=st.session_state.processing,
             key="chat_input"
         )
